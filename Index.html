@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Vertical Swiper Slider with Progress Bar and Year Pagination</title>
+  <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css">
+  <style>
+    body, html {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+    }
+    .swiper-container {
+      width: 100%;
+      height: 100%;
+    }
+    .swiper-slide {
+      text-align: center;
+      font-size: 24px;
+      background: #fff;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    .swiper-pagination-bullet {
+      width: 10px;
+      height: 10px;
+      background: #007bff;
+      border-radius: 50%;
+      margin: 0 8px;
+    }
+    .swiper-progress-bar {
+      width: 4px;
+      height: 100%;
+      background: #007bff;
+      position: absolute;
+      top: 0;
+      left: 0;
+      z-index: 10;
+    }
+    .swiper-progress {
+      width: 100%;
+      background: rgba(0, 0, 0, 0.3);
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      z-index: 10;
+    }
+  </style>
+</head>
+<body>
+
+<div class="swiper-container">
+  <div class="swiper-wrapper">
+    <div class="swiper-slide" data-year="2022">Slide 1</div>
+    <div class="swiper-slide" data-year="2023">Slide 2</div>
+    <div class="swiper-slide" data-year="2024">Slide 3</div>
+    <!-- Add more slides as needed -->
+  </div>
+  <div class="swiper-pagination"></div>
+  <div class="swiper-progress-bar">
+    <div class="swiper-progress"></div>
+  </div>
+</div>
+
+<script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+<script>
+  var swiper = new Swiper('.swiper-container', {
+    direction: 'vertical',
+    loop: true,
+    pagination: {
+      el: '.swiper-pagination',
+      clickable: true,
+      renderBullet: function (index, className) {
+        var slides = document.querySelectorAll('.swiper-slide');
+        return '<span class="' + className + '">' + slides[index].getAttribute('data-year') + '</span>';
+      },
+    },
+    autoplay: {
+      delay: 5000,
+    },
+    on: {
+      progress: function(progress) {
+        var progressBar = document.querySelector('.swiper-progress');
+        progressBar.style.height = progress * 100 + '%';
+      },
+    },
+  });
+</script>
+
+</body>
+</html>
